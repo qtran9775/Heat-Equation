@@ -1,0 +1,393 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     12583,        385]
+NotebookOptionsPosition[     12161,        369]
+NotebookOutlinePosition[     12628,        387]
+CellTagsIndexPosition[     12585,        384]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[TextData[{
+ "We choose the inseparable partial differential heat equation:\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     FractionBox[
+      RowBox[{
+       SuperscriptBox["\[PartialD]", "2"], "u"}], 
+      RowBox[{"\[PartialD]", 
+       SuperscriptBox["x", "2"]}]], "-", " ", 
+     SuperscriptBox["u", "3"]}], "=", " ", 
+    FractionBox[
+     RowBox[{"\[PartialD]", "u"}], 
+     RowBox[{"\[PartialD]", "t"}]]}], TraditionalForm]],
+  FontSize->24,ExpressionUUID->"ea7db58d-9b31-4aa3-8ac6-49c6ec0d192a"],
+ "\nwith the initial conditions as below:\nu(0, t) = 0\nu(\[Pi],t) = 1\nu(x, \
+0) = 0\n\nLooking at the coefficients,We have:\n",
+ Cell[BoxData[
+  FormBox[
+   FractionBox[
+    RowBox[{"\[PartialD]", "u"}], 
+    RowBox[{"\[PartialD]", "t"}]], TraditionalForm]],
+  FontSize->24,ExpressionUUID->"65ff23eb-c601-47a3-a451-badcae9c1523"],
+ StyleBox["= ",
+  FontSize->24],
+ Cell[BoxData[
+  FormBox[
+   FractionBox[
+    RowBox[{
+     RowBox[{"u", "(", 
+      RowBox[{"x", ",", " ", 
+       RowBox[{"t", " ", "+", 
+        RowBox[{"\[DifferenceDelta]", "t"}]}]}], ")"}], " ", "-", " ", 
+     RowBox[{"u", "(", 
+      RowBox[{"x", ",", "t"}], ")"}]}], 
+    RowBox[{"\[DifferenceDelta]", "t"}]], TraditionalForm]],
+  FontSize->24,ExpressionUUID->"2f4395a2-8eaf-40a4-b357-c1870944c3aa"],
+ StyleBox["\n",
+  FontSize->24],
+ Cell[BoxData[
+  FormBox[
+   FractionBox[
+    RowBox[{
+     SuperscriptBox["\[PartialD]", "2"], "u"}], 
+    RowBox[{"\[PartialD]", 
+     SuperscriptBox["x", "2"]}]], TraditionalForm]],
+  FontSize->24,ExpressionUUID->"06226e16-005d-4998-b2df-59dad6fbdd6e"],
+ StyleBox["= ",
+  FontSize->24],
+ Cell[BoxData[
+  FormBox[
+   FractionBox[
+    RowBox[{
+     RowBox[{"u", "(", 
+      RowBox[{
+       RowBox[{"x", " ", "+", " ", 
+        RowBox[{"\[DifferenceDelta]", "x"}]}], ",", " ", "t"}], ")"}], " ", 
+     "-", " ", 
+     RowBox[{"2", 
+      RowBox[{"u", "(", 
+       RowBox[{"x", ",", "t"}], ")"}]}], " ", "+", " ", 
+     RowBox[{"u", "(", 
+      RowBox[{
+       RowBox[{"x", " ", "-", " ", 
+        RowBox[{"\[DifferenceDelta]", "x"}]}], ",", " ", "t"}], ")"}]}], 
+    SuperscriptBox[
+     RowBox[{"(", 
+      RowBox[{"\[DifferenceDelta]", "x"}], ")"}], "2"]], TraditionalForm]],
+  FontSize->24,ExpressionUUID->"c8fa8c96-0de7-4bea-937f-4e22a28d40d8"],
+ "\n\nConverting the above equations into matrices, we have:\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["U", 
+     RowBox[{"j", ",", " ", "k"}]], " ", "\[TildeTilde]", " ", 
+    RowBox[{"u", "(", 
+     RowBox[{
+      SubscriptBox["x", "j"], ",", " ", 
+      SubscriptBox["t", "k"]}], ")"}]}], TraditionalForm]],
+  FontSize->18,ExpressionUUID->"3aa53708-2ebd-447e-a7e5-a5c72558ab23"],
+ StyleBox["\n",
+  FontSize->18],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SubscriptBox["x", 
+      RowBox[{"j", " "}]], "=", " ", 
+     RowBox[{
+      RowBox[{"j", 
+       RowBox[{"\[DifferenceDelta]", "x"}]}], " ", "=", " ", 
+      FractionBox["j\[Pi]", "N"]}]}], " ", ",", " ", 
+    RowBox[{
+     RowBox[{"\[DifferenceDelta]", "x"}], " ", "=", " ", 
+     FractionBox["\[Pi]", "N"]}]}], TraditionalForm]],
+  FontSize->18,ExpressionUUID->"b479f592-dbf8-481d-baa2-c95074f65d8f"],
+ StyleBox["\n",
+  FontSize->18],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SubscriptBox["t", 
+      RowBox[{"k", " "}]], "=", " ", 
+     RowBox[{
+      RowBox[{"k", 
+       RowBox[{"\[DifferenceDelta]", "t"}]}], " ", "=", " ", 
+      FractionBox["kT", "N"]}]}], " ", ",", " ", 
+    RowBox[{
+     RowBox[{"\[DifferenceDelta]", "t"}], " ", "=", " ", 
+     RowBox[{
+      FractionBox["T", "N"], "=", " ", 
+      FractionBox["1", "N"]}]}]}], TraditionalForm]],
+  FontSize->18,ExpressionUUID->"fb0b37a7-ccfb-4070-ba3a-f75c5f692bef"],
+ "\n\nSubstituting the above matrices into the equations of coefficients, we \
+have:\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox[
+     RowBox[{"\[PartialD]", "u"}], 
+     RowBox[{"\[PartialD]", "t"}]], "=", 
+    FractionBox[
+     RowBox[{
+      SubscriptBox["U", 
+       RowBox[{"j", ",", 
+        RowBox[{"k", "+", "1"}]}]], "-", " ", 
+      SubscriptBox["U", 
+       RowBox[{"j", ",", " ", "k"}]]}], "\[CapitalDelta]t"]}], 
+   TraditionalForm]],
+  FontSize->24,ExpressionUUID->"a927e77c-aa66-462e-aa15-9d82a729dd80"],
+ " \n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox[
+     RowBox[{
+      SuperscriptBox["\[PartialD]", "2"], "u"}], 
+     RowBox[{"\[PartialD]", 
+      SuperscriptBox["x", "2"]}]], "=", 
+    FractionBox[
+     RowBox[{
+      SubscriptBox["U", 
+       RowBox[{
+        RowBox[{"j", "+", "1"}], ",", "k"}]], "-", " ", 
+      RowBox[{"2", 
+       SubscriptBox["U", 
+        RowBox[{"j", ",", " ", "k"}]]}], "+", 
+      SubscriptBox["U", 
+       RowBox[{
+        RowBox[{"j", "-", "1"}], ",", " ", "k"}]]}], 
+     SuperscriptBox[
+      RowBox[{"(", "\[CapitalDelta]x", ")"}], "2"]]}], TraditionalForm]],
+  FontSize->24,ExpressionUUID->"2a8c0d83-6fc4-4099-aeb1-998ccf03232d"],
+ "\n\nUsing the two equations above, the original equation becomes:\n\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     FractionBox[
+      RowBox[{
+       SubscriptBox["U", 
+        RowBox[{
+         RowBox[{"j", "+", "1"}], ",", "k"}]], "-", " ", 
+       RowBox[{"2", 
+        SubscriptBox["U", 
+         RowBox[{"j", ",", " ", "k"}]]}], "+", 
+       SubscriptBox["U", 
+        RowBox[{
+         RowBox[{"j", "-", "1"}], ",", " ", "k"}]]}], 
+      SuperscriptBox[
+       RowBox[{"(", "\[CapitalDelta]x", ")"}], "2"]], " ", "-", " ", 
+     SuperscriptBox[
+      RowBox[{"(", 
+       SubscriptBox["U", 
+        RowBox[{"j", ",", " ", "k"}]], ")"}], "3"]}], "=", " ", 
+    FractionBox[
+     RowBox[{
+      SubscriptBox["U", 
+       RowBox[{"j", ",", 
+        RowBox[{"k", "+", "1"}]}]], "-", " ", 
+      SubscriptBox["U", 
+       RowBox[{"j", ",", " ", "k"}]]}], "\[CapitalDelta]t"]}], 
+   TraditionalForm]],
+  FontSize->24,ExpressionUUID->"d814a94a-eddc-40e8-9b75-5133d5e9ae82"],
+ "\n\nSolving for ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["U", 
+    RowBox[{"j", ",", 
+     RowBox[{"k", "+", "1"}]}]], TraditionalForm]],ExpressionUUID->
+  "97993b74-6719-4814-905c-3b5428a8f3ca"],
+ ", we have:\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["U", 
+     RowBox[{"j", ",", 
+      RowBox[{"k", "+", "1"}]}]], "=", 
+    RowBox[{
+     RowBox[{
+      FractionBox[
+       RowBox[{
+        SubscriptBox["U", 
+         RowBox[{
+          RowBox[{"j", "+", "1"}], ",", "k"}]], "-", " ", 
+        RowBox[{"2", 
+         SubscriptBox["U", 
+          RowBox[{"j", ",", " ", "k"}]]}], "+", 
+        SubscriptBox["U", 
+         RowBox[{
+          RowBox[{"j", "-", "1"}], ",", " ", "k"}]]}], 
+       SuperscriptBox[
+        RowBox[{"(", "\[CapitalDelta]x", ")"}], "2"]], 
+      RowBox[{"\[DifferenceDelta]", "t"}]}], " ", "-", " ", 
+     RowBox[{
+      SuperscriptBox[
+       RowBox[{"(", 
+        SubscriptBox["U", 
+         RowBox[{"j", ",", " ", "k"}]], ")"}], "3"], 
+      RowBox[{"\[DifferenceDelta]", "t"}]}], "-", " ", 
+     SubscriptBox["U", 
+      RowBox[{"j", ",", " ", "k"}]]}]}], TraditionalForm]],
+  FontSize->24,ExpressionUUID->"7f48cc95-588c-4ff3-9d97-c1d57bc5bd03"],
+ "\n\nSimplifying it further by substituting ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"\[DifferenceDelta]", "t"}], " ", "=", " ", 
+    FractionBox["1", "N"]}], TraditionalForm]],
+  FontSize->18,ExpressionUUID->"58eea5b2-74fc-4741-abac-ca8876449019"],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"\[DifferenceDelta]", "x"}], " ", "=", " ", 
+    FractionBox["\[Pi]", "N"]}], TraditionalForm]],
+  FontSize->18,ExpressionUUID->"299fd3c3-ceac-41b0-865e-2881d76a383c"],
+ ", we have:\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    FractionBox[
+     RowBox[{"\[DifferenceDelta]", "t"}], 
+     SuperscriptBox[
+      RowBox[{"(", 
+       RowBox[{"\[DifferenceDelta]", "x"}], ")"}], "2"]], "=", " ", 
+    RowBox[{
+     RowBox[{
+      FractionBox["1", "N"], 
+      FractionBox[
+       SuperscriptBox["N", "2"], 
+       SuperscriptBox["\[Pi]", "2"]]}], "=", " ", 
+     FractionBox["N", 
+      SuperscriptBox["\[Pi]", "2"]]}]}], TraditionalForm]],
+  FontSize->24,ExpressionUUID->"aa281ba1-81a8-4523-bd31-e806c5110339"],
+ "\n\nThus, our equation becomes:\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["U", 
+     RowBox[{"j", ",", 
+      RowBox[{"k", "+", "1"}]}]], "=", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{
+        SubscriptBox["U", 
+         RowBox[{
+          RowBox[{"j", "+", "1"}], ",", "k"}]], "-", " ", 
+        RowBox[{"2", 
+         SubscriptBox["U", 
+          RowBox[{"j", ",", " ", "k"}]]}], "+", 
+        SubscriptBox["U", 
+         RowBox[{
+          RowBox[{"j", "-", "1"}], ",", " ", "k"}]]}], ")"}], 
+      FractionBox["N", 
+       SuperscriptBox["\[Pi]", "2"]]}], " ", "-", " ", 
+     RowBox[{
+      SuperscriptBox[
+       RowBox[{"(", 
+        SubscriptBox["U", 
+         RowBox[{"j", ",", " ", "k"}]], ")"}], "3"], 
+      FractionBox["1", "N"]}], "-", " ", 
+     SubscriptBox["U", 
+      RowBox[{"j", ",", " ", "k"}]]}]}], TraditionalForm]],
+  FontSize->24,ExpressionUUID->"ed2fa21a-4827-4fca-a5a1-bbf9d9453167"],
+ "\n\nObserving the initial conditions, we can assume the following about the \
+matrix ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["U", 
+    RowBox[{"j", ",", "k"}]], TraditionalForm]],ExpressionUUID->
+  "9794bd8c-e4af-4dcd-8ff0-34d54d78c84a"],
+ ":\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["U", 
+     RowBox[{"0", ",", "k"}]], " ", "=", " ", "0"}], TraditionalForm]],
+  ExpressionUUID->"ce592696-9419-4d3e-832b-4a569dbfeac2"],
+ "\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["U", 
+     RowBox[{"j", ",", "0"}]], " ", "=", " ", "0"}], TraditionalForm]],
+  ExpressionUUID->"c8ea5c6a-50c5-4577-852d-9e70f9c28e61"],
+ "\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["U", 
+     RowBox[{"N", ",", "0"}]], " ", "=", 
+    RowBox[{
+     SubscriptBox["U", 
+      RowBox[{"\[Pi]", ",", "0"}]], "=", "1", " "}]}], TraditionalForm]],
+  ExpressionUUID->"55de3f98-afce-49fc-a3a0-fdd45cb2007c"],
+ "\n\nThe initial conditions can be visualized as:\n",
+ Cell[BoxData[
+  RowBox[{"(", "\[NoBreak]", GridBox[{
+     {"0", "0", "0", "0", "0"},
+     {"0", ".", ".", ".", "."},
+     {"0", ".", ".", ".", "."},
+     {"0", ".", ".", ".", "."},
+     {"0", "1", "1", "1", "1"}
+    }], "\[NoBreak]", ")"}]],ExpressionUUID->
+  "564f608d-a98e-4564-934c-6cada06e5392"],
+ "\n\n\n"
+}], "Text",
+ CellChangeTimes->{{3.8159134353876953`*^9, 3.815913461395999*^9}, 
+   3.8159136908002586`*^9, {3.8159137211488123`*^9, 3.8159137273474083`*^9}, {
+   3.815913789694865*^9, 3.815913903072283*^9}, {3.8159139656217003`*^9, 
+   3.815913992886425*^9}, {3.8159140585527105`*^9, 3.8159140788417873`*^9}, {
+   3.8159141113425226`*^9, 3.8159141243120623`*^9}, {3.8159141614487514`*^9, 
+   3.815914199102784*^9}, {3.815914232179042*^9, 3.8159144355487723`*^9}, 
+   3.815914496221198*^9, {3.815914552326418*^9, 3.8159151488035965`*^9}, {
+   3.815915201650267*^9, 3.8159152837261763`*^9}, {3.8159197903835225`*^9, 
+   3.8159197978899*^9}, {3.8159199393303556`*^9, 3.815920101028512*^9}, {
+   3.815920164948292*^9, 3.8159201810565405`*^9}, {3.8159202513367*^9, 
+   3.8159202513758574`*^9}, {3.815920471398488*^9, 3.815920513373932*^9}, {
+   3.8159205682798967`*^9, 3.8159205696934566`*^9}, {3.815920649563384*^9, 
+   3.815920649563384*^9}, {3.81592069033292*^9, 3.8159206916535482`*^9}, {
+   3.8159284291302032`*^9, 3.8159285560726085`*^9}, {3.81592859151735*^9, 
+   3.8159286944610214`*^9}, {3.815929286046764*^9, 
+   3.815929373221627*^9}},ExpressionUUID->"58a706b1-36cf-4d59-8c71-\
+68a2965933c9"]
+},
+WindowSize->{1152., 585.6},
+WindowMargins->{{
+  Automatic, -5.399999999999864}, {-5.399999999999977, Automatic}},
+Magnification:>1.4 Inherited,
+FrontEndVersion->"12.1 for Microsoft Windows (64-bit) (June 19, 2020)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"fd5a6359-2b18-46ce-bef7-fcdebb8bcb0e"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 11599, 347, 1702, "Text",ExpressionUUID->"58a706b1-36cf-4d59-8c71-68a2965933c9"]
+}
+]
+*)
+
